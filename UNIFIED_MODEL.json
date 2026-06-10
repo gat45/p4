@@ -1,0 +1,148 @@
+{
+  "P4": {
+    "role": "Audio Deterministic Core",
+    "constraints": {
+      "must_be_deterministic": true,
+      "real_time_deadline_ms": 20,
+      "memory": "IRAM/DRAM for DMA, PSRAM for UI"
+    },
+    "subsystems": {
+      "I2S_DMA": {
+        "runs_on": "Core 0",
+        "priority": "24 (HIGH)",
+        "memory": "MALLOC_CAP_DMA (IRAM)",
+        "source_ref": "ha_voice/bsp_extra + esp-adf/i2s_stream",
+        "deadline_ms": 5
+      },
+      "Opus_Encoder": {
+        "runs_on": "Core 0 or 1",
+        "priority": "20",
+        "memory": "internal SRAM",
+        "source_ref": "esp-adf/encoder_opus",
+        "deadline_ms": 5,
+        "trade_off": "CPU load ↑, bus load ↓"
+      },
+      "AFE_VAD": {
+        "runs_on": "Core 0",
+        "priority": "22",
+        "memory": "PSRAM (large model)",
+        "source_ref": "ha_voice/audio_capture + esp-adf/algorithm_stream",
+        "deadline_ms": 10
+      },
+      "LVGL_UI": {
+        "runs_on": "Core 1",
+        "priority": "15",
+        "memory": "PSRAM (framebuffer)",
+        "source_ref": "JARVIX-OS/lvgl_ui",
+        "deadline_ms": "non-critical"
+      },
+      "Lua_Agent": {
+        "runs_on": "Core 1",
+        "priority": "10",
+        "memory": "PSRAM",
+        "source_ref": "JARVIX-OS/lua_agent_task",
+        "deadline_ms": "non-critical"
+      }
+    }
+  },
+  "C6": {
+    "role": "Network Transport Layer",
+    "constraints": {
+      "wifi_ps_must_be_none": true,
+      "irq_starvation_risk": "WiFi vs SDIO"
+    },
+    "subsystems": {
+      "SDIO_Slave": {
+        "runs_on": "C6 main core",
+        "priority": "MAX",
+        "memory": "DMA buffers (pre-allocated)",
+        "source_ref": "esp-hosted/sdio_slave_api.c",
+        "buffer_pool": "20x 2048B static"
+      },
+      "WiFi_Stack": {
+        "runs_on": "C6 radio ISR",
+        "priority": "radio-level",
+        "power_save": "MUST BE WIFI_PS_NONE",
+        "source_ref": "esp-hosted/app_main.c + ha_voice/wifi_manager.c",
+        "irq_risk": "beacon listen = 5-10ms jitter"
+      },
+      "UDP_Bridge": {
+        "protocol": "UDP (not TCP)",
+        "port": "configurable",
+        "frame_format": "Opus 20ms packets",
+        "source_ref": "ha_voice/ha_client.c"
+      }
+    }
+  },
+  "Server": {
+    "role": "LLM/TTS Pipeline",
+    "runs_on": "Orange Pi / PC",
+    "subsystems": {
+      "STT": {
+        "input": "Opus stream",
+        "output": "text"
+      },
+      "LLM": {
+        "input": "text + context",
+        "output": "response text"
+      },
+      "TTS": {
+        "input": "response text",
+        "output": "Opus stream"
+      }
+    }
+  },
+  "transport": {
+    "P4_to_C6": {
+      "physical": "SDIO (preferred) or SPI",
+      "frame_size": "2048B SDIO / 1600B SPI",
+      "protocol": "esp-hosted wire format (12-byte header)",
+      "flow_control": "GPIO handshake + backpressure",
+      "source_ref": "esp-hosted/adapter.h"
+    },
+    "C6_to_Server": {
+      "protocol": "UDP",
+      "codec": "Opus @ 16-32 kbps",
+      "packet_interval_ms": 20,
+      "jitter_buffer_c6_ms": "80-150",
+      "source_ref": "ha_voice/ha_client.c"
+    },
+    "Server_to_P4": {
+      "protocol": "UDP (same stream)",
+      "codec": "Opus",
+      "jitter_buffer_p4_ms": "20-40"
+    }
+  },
+  "validation_stages": {
+    "stage_1_loopback": {
+      "what": "I2S mic → DMA → Opus encode → DMA → I2S speaker",
+      "where": "P4 only, no network",
+      "success_criteria": [
+        "Zero DMA underrun for 60s",
+        "CPU < 30% on Core 0",
+        "No audio clicks"
+      ],
+      "source": "esp-adf/pipeline_passthru + ha_voice/bsp_extra"
+    },
+    "stage_2_transport": {
+      "what": "Opus frames → SDIO → C6 → WiFi UDP → PC",
+      "where": "P4 + C6, no LLM server",
+      "success_criteria": [
+        "1 Mbps sustained on SDIO",
+        "Burst 100 frames no loss",
+        "Backpressure stall recovery < 100ms"
+      ],
+      "source": "esp-hosted/sdio_slave_api + esp-hosted/esp_sdio"
+    },
+    "stage_3_full_pipeline": {
+      "what": "Full voice assistant pipeline",
+      "where": "P4 + C6 + Server",
+      "success_criteria": [
+        "End-to-end latency < 500ms",
+        "Jitter bounded < 40ms",
+        "Continuous playback for 5 min"
+      ],
+      "source": "ha_voice/voice_pipeline + ha_voice/ha_client"
+    }
+  }
+}
