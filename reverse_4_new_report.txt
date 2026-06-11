@@ -1,0 +1,137 @@
+
+============================================================
+  esp-sr
+============================================================
+  Path: C:\Users\videl\Desktop\lyligo\esp-sr
+  Size: 393 files
+  Lang: {'c': 6, 'cpp': 11, 'h': 336, 'py': 14, 'md': 5}
+
+  Top dirs: ci, docs, esp-tts, include, lib, model, src, test_apps, tool
+  Present: vad, wakenet, afe, tts, p4, c6, webrtc
+  Absent:  opus, stt, llm, websocket, i2s, es8311, lvgl, sdio, spi, livekit, codec2, llamacpp
+  CMakeLists.txt (9):
+    - CMakeLists.txt
+    - esp-tts\CMakeLists.txt
+    - model\CMakeLists.txt
+    - test_apps\esp-sr\CMakeLists.txt
+    - test_apps\esp-tts\CMakeLists.txt
+    - test_apps\esp32c5\CMakeLists.txt
+    - test_apps\esp32c5\main\CMakeLists.txt
+    - test_apps\esp-tts\main\CMakeLists.txt
+    - test_apps\esp-sr\main\CMakeLists.txt
+  WakeNet files (250):
+    - test_apps\esp-sr\sdkconfig.ci.p4v1_wn9_hilexin
+    - test_apps\esp-sr\sdkconfig.ci.p4_wn9_hilexin
+    - test_apps\esp-sr\sdkconfig.ci.wn9s_hilexin
+    - test_apps\esp-sr\sdkconfig.ci.wn9_hilexin
+    - test_apps\esp32c5\sdkconfig.ci.esp32c3_wn9
+    - test_apps\esp32c5\sdkconfig.ci.esp32c5_wn9
+    - test_apps\esp32c5\sdkconfig.ci.esp32c6_wn9
+    - test_apps\esp32c5\sdkconfig.ci.esp32s2_wn9
+  VAD files (100):
+    - model\vadnet_model
+    - test_apps\esp-sr\main\test_vadnet.cpp
+    - model\vadnet_model\vadnet1_medium
+    - model\vadnet_model\vadnet1_medium\vadn1_data
+    - model\vadnet_model\vadnet1_medium\vadn1_index
+    - lib\esp32\libvadnet.a
+    - lib\esp32c3\libvadnet.a
+    - lib\esp32c5\libvadnet.a
+  TTS files (164):
+    - esp-tts
+    - esp-tts\esp_tts_chinese
+    - test_apps\esp-tts
+    - test_apps\esp-tts\pytest_esp_tts.py
+    - test_apps\esp-tts\main\test_chinese_tts.c
+
+============================================================
+  livekit
+============================================================
+  Path: C:\Users\videl\Desktop\lyligo\client-sdk-esp32
+  Size: 116 files
+  Lang: {'c': 38, 'cpp': 0, 'h': 40, 'py': 3, 'md': 14}
+
+  Top dirs: components, docs
+  Present: opus, afe, tts, stt, llm, websocket, i2s, es8311, p4, livekit, webrtc
+  Absent:  vad, wakenet, lvgl, sdio, spi, c6, codec2, llamacpp
+  CMakeLists.txt (15):
+    - components\example_utils\CMakeLists.txt
+    - components\livekit\CMakeLists.txt
+    - components\sandbox_token\CMakeLists.txt
+    - components\third_party\khash\CMakeLists.txt
+    - components\third_party\nanopb\CMakeLists.txt
+    - components\livekit\test_app\CMakeLists.txt
+    - components\livekit\test_app\main\CMakeLists.txt
+    - components\livekit\examples\custom_hardware\CMakeLists.txt
+    - components\livekit\examples\minimal\CMakeLists.txt
+    - components\livekit\examples\minimal_video\CMakeLists.txt
+    - components\livekit\examples\voice_agent\CMakeLists.txt
+    - components\livekit\examples\voice_agent\main\CMakeLists.txt
+    - components\livekit\examples\minimal_video\main\CMakeLists.txt
+    - components\livekit\examples\minimal\main\CMakeLists.txt
+    - components\livekit\examples\custom_hardware\main\CMakeLists.txt
+  LiveKit core files (42):
+    - components\sandbox_token\include\livekit_sandbox.h
+    - components\sandbox_token\src\livekit_sandbox.c
+    - components\livekit\core\livekit.c
+    - components\livekit\include\livekit.h
+    - components\livekit\include\livekit_data_stream.h
+    - components\livekit\include\livekit_rpc.h
+    - components\livekit\include\livekit_types.h
+    - components\livekit\protocol\livekit_metrics.pb.c
+    - components\livekit\protocol\livekit_metrics.pb.h
+    - components\livekit\protocol\livekit_models.pb.c
+  Examples: custom_hardware, minimal, minimal_video, voice_agent
+  livekit/protocol/: livekit_metrics.pb.c, livekit_metrics.pb.h, livekit_models.pb.c, livekit_models.pb.h, livekit_rtc.pb.c, livekit_rtc.pb.h
+  livekit/include/: livekit.h, livekit_data_stream.h, livekit_rpc.h, livekit_types.h
+  Example 'minimal' files: .gitignore, CMakeLists.txt, partitions.csv, README.md, sdkconfig.defaults
+  Example 'custom_hardware' files: .gitignore, CMakeLists.txt, partitions.csv, README.md, sdkconfig.defaults
+
+============================================================
+  waveshare-p4
+============================================================
+  Path: C:\Users\videl\Desktop\lyligo\ESP32-P4-Platform
+  Size: 3146 files
+  Lang: {'c': 1458, 'cpp': 256, 'h': 853, 'py': 56, 'md': 115}
+
+  Top dirs: config, docs, examples, firmware
+  Present: opus, vad, afe, tts, stt, llm, websocket, i2s, es8311, lvgl, sdio, spi, p4, c6
+  Absent:  wakenet, livekit, webrtc, codec2, llamacpp
+  Audio-related files (14):
+    - firmware\brookesia\components\brookesia_core\ai_framework\agent\audio_processor.c
+    - firmware\brookesia\components\brookesia_core\ai_framework\agent\audio_processor.h
+    - examples\esp-idf\18_esp_brookesia_phone\components\brookesia_core\ai_framework\agent\audio_processor.c
+    - examples\esp-idf\18_esp_brookesia_phone\components\brookesia_core\ai_framework\agent\audio_processor.h
+    - examples\esp-idf\12_I2SCodec
+    - examples\esp-idf\12_I2SCodec
+    - examples\esp-idf\12_I2SCodec\pytest_i2s_es8311.py
+    - examples\esp-idf\12_I2SCodec\main\i2s_es8311_example.c
+    - examples\arduino\libraries\lvgl\tests\micropy_test
+    - examples\arduino\libraries\lvgl\tests\micropy_test\micropy.py
+
+============================================================
+  esp32-voice-assistant
+============================================================
+  Path: C:\Users\videl\Desktop\lyligo\ESP32_Voice_Assistant
+  Size: 4 files
+  Lang: {'c': 0, 'cpp': 0, 'h': 1, 'py': 1, 'md': 2}
+
+  Top dirs: esp-code, schematic, server
+  Present: tts, stt, llm, websocket
+  Absent:  opus, vad, wakenet, afe, i2s, es8311, lvgl, sdio, spi, p4, c6, livekit, webrtc, codec2, llamacpp
+  Full tree:
+    - esp-code\esp-code.ino
+    - esp-code\secrets.example.h
+    - LICENSE
+    - README.md
+    - schematic\schematic.pdf
+    - schematic\schematic.png
+    - server\.python-version
+    - server\Dockerfile
+    - server\main.py
+    - server\pyproject.toml
+    - server\README.md
+    - server\tts_models\.tts
+    - server\uv.lock
+
+=== DONE ===
