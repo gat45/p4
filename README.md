@@ -562,7 +562,89 @@ Validation:
 - Stage 2: Transport (1 Mbps SDIO, 100 frame burst)
 - Stage 3: Full pipeline (<500ms E2E latency)
 
+ Protocole MeshCore — Détails (sources: MeshCore-official/src/, Meck-P4-main/components/meshcore/)
+Format trame: [header:1B][transport_codes:4B][path_len:1B][path:0-64B][payload:0-184B]
+  header = route_type(2b) | payload_type(4b) | payload_version(2b)
+  route_type: FLOOD(0x01), DIRECT(0x02), TRANSPORT_FLOOD(0x00), TRANSPORT_DIRECT(0x03)
+  payload_type: ADVERT, REQ, RESPONSE, TXT_MSG, ACK, GRP_TXT, GRP_DATA, ANON_REQ, 
+                PATH, TRACE, MULTIPART, CONTROL, RAW_CUSTOM(0x0F)
 
+Crypto: Ed25519 identity → X25519 ECDH → AES-128-ECB + HMAC-SHA256 (MAC 2B)
+  Pas de nonce — ECB déterministe. HMAC 2B = 1/65536 faux positif.
+  Group channel: PSK 16B (SHA256 du nom si public)
+
+Sync word: 0x1424 (2B configurable via SX1262 setSyncWord())
+Radio: SPI polling exclusif — XL9535 DIO1 jugé non fiable par Meck-P4
+  get_irq_flag() direct via SPI. Pas de CSMA/CA, pas de CAD.
+  Paramètres AU Narrow: 916.575MHz, BW62.5, SF7, CR4/8, 22dBm, preamble 32
+
+Voice (MeckVoice): RAW_CUSTOM → magic 0x56 + sessionID + index + Codec2 1200bps
+  150B payload/packet, 40ms/frame → 6B, 12s max session
+2. Meshtastic vs MeshCore — Compatibilité Radio (sources: trail-mate + meshtastic-firmware)
+Aspect	MeshCore	Meshtastic
+Sync word	0x1424	0x2B
+SF/BW	SF7/BW62.5 kbps	SF11/BW250 kHz
+Fréquence	916.575 MHz fixe	DJB2 hash du nom (ex: 906.875)
+CSMA/CA	NON	OUI (CAD + contention)
+Couche radio	SPI polling	Interrupt-driven (DIO1)
+Conclusion: Les deux protocoles sont orthogonaux sur tous les plans. Ils peuvent partager le même SX1262 en time-slicing sans interférence. trail-mate (modules/core_mesh/src/protocol/meshcore/ + meshtastic/) est la seule implémentation connue des deux adaptateurs sur une même radio.
+3. Switch Runtime SX1262 (inspiré trail-mate)
+1. setRx(false) → stop radio
+2. setSyncWord(0x2B ou 0x1424)
+3. setFrequency(), setBandwidth(), setSpreadingFactor(), setCodingRate()
+4. clearBuffer(), clearIrqFlags()
+5. setRx(true)
+Temps total: ~10-15ms. Fenêtre aveugle.
+4. Antenne Switch — XL9535 P01 → SKY13453 (source: Szetya sur hardware réel)
+P01 = HIGH → antenne externe (MMCX1)
+P01 = LOW → antenne interne (PCB)
+Validé à ~350m: RSSI/SNR meilleurs sur externe.
+5. T-Connection-P4-Pro utilise SX1276 (source: T-Connection-P4-Pro/lib/RadioLib/README.md)
+La carte LilyGO T-Connection-P4-Pro utilise un SX1276 (pas SX1262).  
+Le T-Display P4 standard utilise SX1262 — à vérifier sur la carte physique.
+6. stream-video-esp32 (source: GetStream/stream-video-esp32)
+Alternative à LiveKit SDK avec:
+Même backend LiveKit (idf_component.yml livekit)
+Ajoute pipeline vidéo (H264, camera) — utile pour future expansion
+I2S + ES8311 + ES7210 intégré
+Support P4 officiel
+Utilité: Fallback si LiveKit SDK vanilla a des bugs P4
+7. RWKV.cpp — Limitation Confirmée (source: rwkv.cpp/src/)
+Cible: ARM64 (RK3588), x86_64. PAS ESP32.
+Format: GGML/GGUF. Modèles RWKV-6 et RWKV-7.
+Performance RK3588: ~15-30 tok/s (1.5B Q4)
+Avantage clé: O(1) mémoire — pas de KV-cache.
+8. autogen — Architecture Multi-Agents Concrète (source: autogen/python/)
+Split agents proposé:
+Agent Audio → RPC: play_tts(), set_volume(), vad_status()
+Agent LoRa → RPC: send_mesh(), scan_lora(), mesh_status()
+Agent Système → RPC: battery(), cpu_temp(), wifi_status()
+Agent LLM → RWKV.cpp: generate(), chat(), summarize()
+Orchestrateur → coordonne les 4 agents
+9. SNN pour ALPIG — État Recherche (source: snntorch, norse)
+Phase 1: Entraînement SNN sur snntorch avec données RF synthétiques
+Phase 2: Validation précision vs ALPIG v2 heuristique
+Phase 3: Export modèle → TFLite → P4 NPU (si NPU compatible)
+Phase 4: Remplacer ALPIG heuristique (< 1% CPU)
+Actuel: Phase 1 non commencée.
+10. Nouveaux Repos Clonés (ajouter à la liste)
+stream-video-esp32         — GetStream/stream-video-esp32 (LiveKit + video)
+ESP32-audioI2S             — schreibfaul1 (Arduino, proto rapide)
+T-Connection-P4-Pro        — LilyGO (SX1276, LVGL 9.2, display panel)
+SX1262-Arduino-ESP32-driver — dj0abr (driver SX1262 Arduino, 4 fichiers)
+RWKV-LM                    — BlinkDL (recherche/training LLM)
+RWKV-X                     — howard-hou (optimisations étendues)
+rwkv.cpp                   — RWKV (inférence C++, ARM64)
+snntorch                   — jeshraghian (SNN PyTorch)
+norse                      — norse (SNN recherche)
+Spiking-Neural-Networks-Tutorials — snntorch (tutos)
+open-interpreter           — openinterpreter (agent de code)
+autogen                    — Microsoft (multi-agents)
+CrowPanel-P4               — Elecrow-RD (P4 HMI board)
+11. Corrections / Mises à Jour
+WiFi PS mode: WIFI_PS_NONE confirmé source (esp32p4-c6-wifi-test/README.md)
+SDIO 36 Mbps = bus peak, pas throughput système. Sustained réel: 8-22 Mbps.
+LiveKit SDK v0.3.9 — Developer Preview, pas production ready. Thread model documenté avec 11 threads (priorités 5-20).
 
 
 
