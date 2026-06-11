@@ -33,6 +33,8 @@
 - `xiaozhi-esp32\main\audio\audio_service.h:71` [opus_encode] `.application_mode   = ESP_OPUS_ENC_APPLICATION_AUDIO,                                                     \`
 - `xiaozhi-esp32\main\audio\audio_service.h:143` [opus_encode] `void* opus_encoder_ = nullptr;`
 - `xiaozhi-esp32\main\led\gpio_led.h:46` [memory_placement] `static bool IRAM_ATTR FadeCallback(const ledc_cb_param_t *param, void *user_arg);`
+- `xiaozhi-esp32\main\display\lvgl_display\gif\lvgl_gif.h:27` [flow_control] `* Pause GIF animation`
+- `xiaozhi-esp32\main\display\lvgl_display\gif\lvgl_gif.h:29` [flow_control] `void Pause();`
 - `xiaozhi-esp32\main\boards\m5stack-cardputer-adv\tca8418_keyboard.h:151` [memory_placement] `static void IRAM_ATTR GpioIsrHandler(void* arg);`
 - `xiaozhi-esp32\main\boards\nulllab-ai-vox-v3\ai_vox3_audio_codec.h:32` [dma_buffer] `.dma_desc_num = AUDIO_CODEC_DMA_DESC_NUM,`
 - `xiaozhi-esp32\main\boards\nulllab-ai-vox-v3\ai_vox3_audio_codec.h:33` [dma_buffer] `.dma_frame_num = AUDIO_CODEC_DMA_FRAME_NUM,`
@@ -42,8 +44,6 @@
 - `xiaozhi-esp32\main\boards\otto-robot\power_manager.h:148` [flow_control] `static void PauseBatteryUpdate() { battery_update_paused_ = true; }`
 - `xiaozhi-esp32\main\boards\otto-robot\power_manager.h:149` [flow_control] `static void ResumeBatteryUpdate() { battery_update_paused_ = false; }`
 - `xiaozhi-esp32\main\boards\lceda-course-examples\eda-super-bear\eda_super_bear_movements.h:71` [jitter_buffer] `void Jitter(float steps = 1, int period = 500, int height = 20);`
-- `xiaozhi-esp32\main\display\lvgl_display\gif\lvgl_gif.h:27` [flow_control] `* Pause GIF animation`
-- `xiaozhi-esp32\main\display\lvgl_display\gif\lvgl_gif.h:29` [flow_control] `void Pause();`
 
 ## Detail par Sous-systeme
 
@@ -63,8 +63,8 @@
 - `xiaozhi-esp32\main\boards\common\rndis_board.h:10` `#include "iot_eth_netif_glue.h"`
 
 ### flow_control (6 matches)
-- `xiaozhi-esp32\main\boards\otto-robot\power_manager.h:28` `inline static bool battery_update_paused_ = false;  // 静态标志：是否暂停电量更新`
 - `xiaozhi-esp32\main\display\lvgl_display\gif\lvgl_gif.h:27` `* Pause GIF animation`
+- `xiaozhi-esp32\main\boards\otto-robot\power_manager.h:28` `inline static bool battery_update_paused_ = false;  // 静态标志：是否暂停电量更新`
 
 ### i2s_driver (2 matches)
 - `xiaozhi-esp32\main\boards\nulllab-ai-vox-v3\ai_vox3_audio_codec.h:58` `ESP_ERROR_CHECK(i2s_channel_init_std_mode(tx_handle_, &std_cfg));`
@@ -124,13 +124,10 @@
 
 ### timestamp (25 matches)
 - `xiaozhi-esp32\main\protocols\protocol.h:21` `uint32_t timestamp;     // Timestamp in milliseconds (used for server-side AEC)`
+- `xiaozhi-esp32\main\display\lvgl_display\gif\lvgl_gif.h:62` `* Get loop delay in milliseconds (delay between loops)`
 - `xiaozhi-esp32\main\boards\electron-bot\oscillator.h:67` `long previous_millis_;`
 - `xiaozhi-esp32\main\boards\esp-s3-lcd-ev-board\esp_lcd_gc9503.h:30` `unsigned int delay_ms;  /*<! Delay in milliseconds after this command */`
 - `xiaozhi-esp32\main\boards\esp-s3-lcd-ev-board-2\esp_lcd_gc9503.h:30` `unsigned int delay_ms;  /*<! Delay in milliseconds after this command */`
-- `xiaozhi-esp32\main\boards\kevin-yuying-313lcd\esp_lcd_gc9503.h:30` `unsigned int delay_ms;  /*<! Delay in milliseconds after this command */`
-- `xiaozhi-esp32\main\boards\lilygo-t-circle-s3\esp_lcd_gc9d01n.h:17` `unsigned int delay_ms;  /*<! Delay in milliseconds after this command */`
-- `xiaozhi-esp32\main\boards\lilygo-t-display-p4\hi8561_driver.h:26` `unsigned int delay_ms; /*<! Delay in milliseconds after this command */`
-- `xiaozhi-esp32\main\boards\lilygo-t-display-p4\rm69a10_driver.h:26` `unsigned int delay_ms; /*<! Delay in milliseconds after this command */`
 
 ### vad_detection (2 matches)
 - `xiaozhi-esp32\main\audio\processors\afe_audio_processor.h:37` `std::function<void(bool speaking)> vad_state_change_callback_;`

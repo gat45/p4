@@ -73,23 +73,6 @@
 - `led_ready` stack=2048 prio=NULL
 - `mqtt_setup` stack=4096 prio=NULL
 
-## Components JARVIX-OS
-
-### Intégrés (complets)
-- `components/audio/` — audio_capture, audio_ref_buffer, voice_pipeline, wifi_manager, ha_client
-- `components/lora_scanner/` — ALPIG v2 behavior fingerprinting (3-layer: protocol/radio/ML)
-- `components/lvgl_ui/` — LVGL UI + theme.h (SigurdOS) + responsive.h
-- `components/meshcore/` — MeshCore protocol + P4SX1262Radio + C6 BLE/WiFi bridge
-- `components/opus/` — Opus codec (132 C files, complexity=1, FIXED_POINT)
-- `components/RadioLib/` — SX1262 driver (RadioLib master)
-- `components/sdio_watchdog/` — SDIO 0x107 error recovery watchdog
-
-### Nouveaux (à intégrer)
-- SigurdOS: test pattern (50+ modules), MeshCore API wrapper (438 lines)
-- Meck-P4-v2: MeckNotes, MeckWebFetch, MeckCardKB, miniz
-- Trail Mate: multi-protocol UI patterns, GPS map, walkie-talkie Codec2
-- esp32p4-c6-wifi-test: SDIO 36 Mbps validated, optimized sdkconfig
-
 ## Validation Pipeline
 
 ### Étape 1: Loopback I2S (P4 seul)

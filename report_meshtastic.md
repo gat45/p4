@@ -1,4 +1,4 @@
-# Rapport d'Analyse: Meshtastic (LoRa Mesh)
+# Rapport d'Analyse: Meshtastic (firmware-develop)
 **Projet:** `meshtastic`
 
 ## Statistiques
@@ -60,7 +60,7 @@
 - `firmware-develop\src\modules\esp32\AudioModule.cpp:159` `.dma_buf_count = 8,`
 
 ### encryption (192 matches)
-- `firmware-develop\src\mesh\aes-ccm.cpp:2` `* Counter with CBC-MAC (CCM) with AES`
+- `firmware-develop\test\test_crypto\test_main.cpp:2` `#include "CryptoEngine.h"`
 
 ### ethernet (88 matches)
 - `firmware-develop\src\mesh\NodeDB.cpp:992` `config.network.eth_enabled = true;`
@@ -112,6 +112,7 @@
 - `firmware-develop\src\mesh\generated\meshtastic\portnums.pb.h:148` `/* Reticulum Network Stack Tunnel App`
 
 ### routing (57 matches)
+- `firmware-develop\test\test_mqtt\MQTT.cpp:363` `void test_sendDirectlyConnectedDecoded(void)`
 - `firmware-develop\src\mesh\FloodingRouter.cpp:1` `#include "FloodingRouter.h"`
 
 ### sample_rate_config (2 matches)
@@ -135,11 +136,11 @@
 ### task_pinning (12 matches)
 - `firmware-develop\src\graphics\EInkParallelDisplay.cpp:128` `BaseType_t rc = xTaskCreatePinnedToCore(EInkParallelDisplay::asyncFullUpdateTask, "epd_full", 4096 /`
 - `firmware-develop\src\graphics\tftSetup.cpp:134` `xTaskCreatePinnedToCore(tft_task_handler, "tft", TFT_TASK_STACK_SIZE, NULL, 1, NULL, 0);`
-- `firmware-develop\variants\esp32\m5stack_coreink\variant.h:51` `// https://www.waveshare.com/core1262-868m.htm`
+- `firmware-develop\variants\nrf52840\diy\nrf52_promicro_diy_tcxo\variant.h:184` `| Waveshare    | Core1262-HF      | yes  | Ext       |                                       |`
+- `firmware-develop\variants\esp32s3\bpi_picow_esp32_s3\variant.h:30` `// WaveShare Core1262-868M OK`
+- `firmware-develop\variants\esp32c6\m5stack_unitc6l\variant.h:26` `// WaveShare Core1262-868M OK`
 - `firmware-develop\variants\esp32c3\ai-c3\variant.h:19` `// WaveShare Core1262-868M`
 - `firmware-develop\variants\esp32c3\m5stack-stamp-c3\variant.h:29` `// WaveShare Core1262-868M OK`
-- `firmware-develop\variants\esp32c6\m5stack_unitc6l\variant.h:26` `// WaveShare Core1262-868M OK`
-- `firmware-develop\variants\esp32s3\bpi_picow_esp32_s3\variant.h:30` `// WaveShare Core1262-868M OK`
 
 ### task_priority (52 matches)
 - `firmware-develop\src\DebugConfiguration.cpp:89` `Syslog &Syslog::defaultPriority(uint16_t pri)`
@@ -171,10 +172,10 @@
 
 ### watchdog (83 matches)
 - `firmware-develop\src\sleep.cpp:151` `reason = "taskWatchdog";`
-- `firmware-develop\src\modules\Modules.cpp:110` `#if defined(HAS_HARDWARE_WATCHDOG)`
+- `firmware-develop\variants\nrf52840\meshlink\variant.cpp:21` `digitalWrite(PIN_WD_EN, HIGH); // Enable the Watchdog at boot`
 
 ### wifi_power_save (6 matches)
 - `firmware-develop\src\motion\BMI270Sensor.cpp:22` `#define BMI270_PWR_CONF_ADV_POWER_SAVE_DISABLED 0x00`
-- `firmware-develop\src\graphics\niche\InkHUD\Applets\System\Menu\MenuApplet.cpp:572` `case TOGGLE_POWER_SAVE:`
 - `firmware-develop\src\mesh\wifi\WiFiAPClient.cpp:375` `esp_wifi_set_ps(WIFI_PS_NONE); // Disable radio power saving`
+- `firmware-develop\src\graphics\niche\InkHUD\Applets\System\Menu\MenuApplet.cpp:572` `case TOGGLE_POWER_SAVE:`
 - `firmware-develop\src\graphics\niche\InkHUD\Applets\System\Menu\MenuAction.h:113` `TOGGLE_POWER_SAVE,`

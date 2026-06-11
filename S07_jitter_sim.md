@@ -8,11 +8,11 @@
 
 ## Résultats
 - Frames totales: 500
-- Frames perdues: 11 (2.2%)
-- Frames tardives (>20ms jitter): 95
+- Frames perdues: 6 (1.2%)
+- Frames tardives (>20ms jitter): 80
 - Buffer underruns: 0 (0.0%)
 - Buffer overflows: 0 (0.0%)
-- Jitter moyen (abs): 11.66 ms
+- Jitter moyen (abs): 10.88 ms
 - Jitter max: 25 ms
 - Buffer occupancy moyen: 60.0 ms
 

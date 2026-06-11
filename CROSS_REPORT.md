@@ -3,45 +3,45 @@
 
 ## 1. Matrice de Couverture des Sous-systemes
 
-| Sous-systeme | ha_voice | esp_hosted | esp_adf | xiaozhi | meshcore | meshtastic | jarvix |
-|---|---|---|---|---|---|---|---|
-| **afe_pipeline** | ? | ? | ? | ? | ? | ? | ? |
-| **clock_source** | ? | ? | ? | ? | ? | ? | ? |
-| **codec_init** | ? | ? | ? | ? | ? | ? | ? |
-| **dma_buffer** | ? | ? | ? | ? | ? | ? | ? |
-| **encryption** | ? | ? | ? | ? | ? | ? | ? |
-| **ethernet** | ? 37 | ? 46 | ? | ?? 3 | ? 514 | ? 88 | ? |
-| **flow_control** | ? | ? | ? | ? | ? | ? | ? |
-| **hosted_init** | ? | ? | ? | ? | ? | ? | ? |
-| **i2s_capture** | ? | ? | ? | ? | ? | ? | ? |
-| **i2s_driver** | ? | ? | ? | ? | ? | ? | ? |
-| **i2s_playback** | ? | ? | ? | ? | ? | ? | ? |
-| **jitter_buffer** | ? | ? | ? | ?? 2 | ?? 2 | ? 6 | ?? 2 |
-| **lora_radio** | ? | ? | ? | ? 8 | ? 758 | ? 1402 | ? 125 |
-| **memory_placement** | ? | ? | ? | ? | ? | ? | ? |
-| **mqtt** | ? 389 | ? 80 | ? 10 | ? 15 | ? | ? 652 | ? 10 |
-| **opus_decode** | ? | ? | ? | ? | ? | ? | ? |
-| **opus_encode** | ? | ? | ? | ? | ? | ? | ? |
-| **psram_usage** | ? | ? | ? | ? | ? | ? | ? |
-| **reticulum** | ? | ? | ? | ? | ? | ?? 2 | ? |
-| **ring_buffer** | ? 8 | ? 8 | ? 497 | ? | ? | ? | ? 14 |
-| **routing** | ? | ? | ? | ? | ? | ? | ? |
-| **sample_rate_config** | ? | ? | ? | ? | ? | ? | ? |
-| **sdio_bridge** | ? | ? | ? | ? | ? | ? | ? |
-| **spi_bridge** | ? | ? | ? | ? | ? | ? | ? |
-| **sync_word** | ? | ? | ? | ? | ? | ? | ? |
-| **synchronization** | ? | ? | ? | ? | ? | ? | ? |
-| **task_pinning** | ? | ? | ? | ? | ? | ? | ? |
-| **task_priority** | ? | ? | ? | ? | ? | ? | ? |
-| **timestamp** | ? 9 | ? 14 | ? 66 | ? 25 | ? 366 | ? 601 | ? 244 |
-| **transport_queue** | ? | ? | ? | ? | ? | ? | ? |
-| **udp** | ? | ? 8 | ? 13 | ? | ? | ? 106 | ? |
-| **vad_detection** | ? | ? | ? | ? | ? | ? | ? |
-| **wake_word** | ? | ? | ? | ? | ? | ? | ? |
-| **watchdog** | ? 44 | ? | ?? 2 | ? | ? 33 | ? 83 | ? 9 |
-| **websocket** | ? 43 | ? | ? 11 | ? 16 | ? | ? | ? 43 |
-| **wifi_power_save** | ? | ? | ? | ? | ? | ? | ? |
-| **wifi_remote** | ?? 3 | ? | ? | ? | ?? 2 | ? | ?? 4 |
+| Sous-systeme | ha_voice | esp_hosted | esp_adf | xiaozhi | xiaozhi_serv | meshcore | meshtastic | trail_mate | meshcomod | akita_bridge | lunarcore | meck_p4 | tdisplay_p4 | jarvix |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **afe_pipeline** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **clock_source** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **codec_init** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **dma_buffer** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **encryption** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **ethernet** | ? 37 | ? 46 | ? | ?? 3 | ? | ? 514 | ? 88 | ?? 4 | ?? 1 | ? | ? | ? 514 | ? 498 | ? |
+| **flow_control** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **hosted_init** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **i2s_capture** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **i2s_driver** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **i2s_playback** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **jitter_buffer** | ? | ? | ? | ?? 2 | ? | ?? 2 | ? 6 | ? 45 | ? 10 | ? | ? | ?? 2 | ? | ? 16 |
+| **lora_radio** | ? | ? | ? | ? 8 | ? | ? 759 | ? 1402 | ? 231 | ? 628 | ? | ? | ? 759 | ? 682 | ? 14117 |
+| **memory_placement** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **mqtt** | ? 389 | ? 80 | ? 10 | ? 15 | ? | ? | ? 652 | ? 945 | ? | ? | ? | ? | ? | ? 10 |
+| **opus_decode** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **opus_encode** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **psram_usage** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **reticulum** | ? | ? | ? | ? | ? | ? | ?? 2 | ? 596 | ? | ? | ? | ? | ? | ? |
+| **ring_buffer** | ? 8 | ? 8 | ? 497 | ? | ? | ? | ? | ? 12 | ? | ? | ? | ? | ? | ? 25 |
+| **routing** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **sample_rate_config** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **sdio_bridge** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **spi_bridge** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **sync_word** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **synchronization** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **task_pinning** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **task_priority** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **timestamp** | ? 9 | ? 14 | ? 66 | ? 25 | ? | ? 383 | ? 601 | ? 425 | ? 670 | ? | ? | ? 383 | ? 128 | ? 437 |
+| **transport_queue** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **udp** | ? | ? 8 | ? 13 | ? | ? | ? | ? 106 | ?? 3 | ? | ? | ? | ? | ? | ?? 2 |
+| **vad_detection** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **wake_word** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **watchdog** | ? 44 | ? | ?? 2 | ? | ? | ? 38 | ? 83 | ? 41 | ? 21 | ? | ? | ? 38 | ? 27 | ? 39 |
+| **websocket** | ? 43 | ? | ? 11 | ? 16 | ? | ? | ? | ? | ? 66 | ? | ? | ? | ? | ? 43 |
+| **wifi_power_save** | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? |
+| **wifi_remote** | ?? 3 | ? | ? | ? | ? | ?? 2 | ? | ? | ? | ? | ? | ?? 2 | ?? 1 | ?? 4 |
 
 ## 2. Pipeline Audio: Comparaison des Approches
 
@@ -62,18 +62,18 @@
 
 ### ESP-ADF (Audio Framework)
 - ? **i2s_init**: 21 refs -- `esp-adf\components\audio_stream\i2s_stream.c:172`
-- ? **i2s_read**: 72 refs -- `esp-adf\components\audio_stream\i2s_stream.c:225`
-- ? **i2s_write**: 152 refs -- `esp-adf\components\audio_stream\i2s_stream.c:242`
-- ? **es8311_init**: 25 refs -- `esp-adf\components\audio_hal\test\test_audio_hal.c:131`
-- ? **dma_config**: 21 refs -- `esp-adf\components\audio_stream\i2s_stream.c:142`
-- ? **afe_init**: 128 refs -- `esp-adf\components\audio_recorder\recorder_sr.c:40`
-- ? **vad**: 22 refs -- `esp-adf\components\audio_recorder\recorder_sr.c:109`
-- ? **wakenet**: 36 refs -- `esp-adf\components\audio_recorder\audio_recorder.c:629`
-- ? **opus_encoder**: 33 refs -- `esp-adf\examples\ai_agent\coze_ws_app\main\audio_processor.c:33`
-- ? **opus_decoder**: 71 refs -- `esp-adf\examples\advanced_examples\audio_mixer_tone\main\audio_mixer_example.c:451`
-- ? **ring_buffer**: 497 refs -- `esp-adf\components\audio_pipeline\audio_element.c:59`
+- ? **i2s_read**: 72 refs -- `esp-adf\examples\protocols\components\av_record\record_i2s_aud.c:27`
+- ? **i2s_write**: 152 refs -- `esp-adf\micropython_adf\mod\audio_player.c:144`
+- ? **es8311_init**: 25 refs -- `esp-adf\components\esp_codec_dev\device\es8311\es8311.c:215`
+- ? **dma_config**: 21 refs -- `esp-adf\examples\ai_agent\volc_rtc\components\audio_processor\audio_stream_dual_microphones.c:156`
+- ? **afe_init**: 128 refs -- `esp-adf\examples\protocols\voip\main\voip_app.c:22`
+- ? **vad**: 22 refs -- `esp-adf\examples\speech_recognition\vad\main\example_vad_main.c:92`
+- ? **wakenet**: 36 refs -- `esp-adf\examples\speech_recognition\wwe\main\main.c:64`
+- ? **opus_encoder**: 33 refs -- `esp-adf\examples\recorder\pipeline_recording_to_sdcard\main\recording_to_sdcard_example.c:27`
+- ? **opus_decoder**: 71 refs -- `esp-adf\examples\player\pipeline_play_sdcard_music\main\play_sdcard_music_example.c:26`
+- ? **ring_buffer**: 497 refs -- `esp-adf\examples\recorder\pipeline_wav_amr_sdcard\main\pipeline_wav_amr_sdcard.c:137`
 - ? **jitter_buffer**: absent
-- ? **apll**: 6 refs -- `esp-adf\components\audio_hal\test\test_audio_hal.c:54`
+- ? **apll**: 6 refs -- `esp-adf\examples\get-started\pipeline_a2dp_sink_and_hfp\main\a2dp_sink_and_hfp_example.c:409`
 
 ### Xiaozhi-ESP32 (Voice Assistant)
 - ? **i2s_init**: 2 refs -- `xiaozhi-esp32\main\boards\nulllab-ai-vox-v3\ai_vox3_audio_codec.h:58`
@@ -93,12 +93,12 @@
 ## 3. Transport P4<->C6: esp-hosted vs HA Voice Assistant
 
 ### ESP-Hosted (P4<->C6 Bridge)
-- ? **esp_hosted_init**: 66 refs -- `esp-hosted\esp_hosted_fg\esp\esp_driver\network_adapter\main\esp_hosted_coprocessor.c:319`
-- ? **sdio_transport**: 253 refs -- `esp-hosted\esp_hosted_fg\esp\esp_driver\network_adapter\main\sdio_slave_api.c:24`
-- ? **spi_transport**: 116 refs -- `esp-hosted\esp_hosted_fg\esp\esp_driver\network_adapter\main\esp_hosted_coprocessor.c:113`
-- ? **backpressure**: 72 refs -- `esp-hosted\esp_hosted_fg\esp\esp_driver\network_adapter\main\example_mqtt_client.c:255`
+- ? **esp_hosted_init**: 66 refs -- `esp-hosted\esp_hosted_ng\host\esp_cmd.c:482`
+- ? **sdio_transport**: 253 refs -- `esp-hosted\esp_hosted_ng\host\sdio\esp_sdio.c:544`
+- ? **spi_transport**: 116 refs -- `esp-hosted\esp_hosted_ng\host\spi\esp_spi.c:289`
+- ? **backpressure**: 72 refs -- `esp-hosted\esp_hosted_ng\host\esp_stats.c:69`
 - ? **wifi_remote**: absent
-- ? **wifi_ps_mode**: 183 refs -- `esp-hosted\esp_hosted_fg\common\esp_hosted_config.pb-c.c:6502`
+- ? **wifi_ps_mode**: 183 refs -- `esp-hosted\esp_hosted_ng\host\sdio\esp_sdio.c:830`
 
 ### Home Assistant Voice Assistant (P4+C6)
 - ? **esp_hosted_init**: absent
@@ -111,17 +111,17 @@
 ## 4. Mesh LoRa: MeshCore vs Meshtastic
 
 ### MeshCore (LoRa Mesh)
-- ? **lora_radio**: 758 refs -- `Meck-P4-main\components\meshcore\MeckUI.cpp:403`
-- ? **mesh_routing**: 92 refs -- `Meck-P4-main\components\meshcore\MeckUI.cpp:5477`
-- ? **mesh_sync_word**: 4593 refs -- `Meck-P4-main\components\meshcore\meck_emoji_14.c:177`
-- ? **mesh_encryption**: 259 refs -- `Meck-P4-main\components\esp_video\src\esp_video_isp_pipeline.c:335`
+- ? **lora_radio**: 759 refs -- `Meck-P4-main\main\keyboard_examples\radiolib_cc1101_send_receive\main.cpp:2`
+- ? **mesh_routing**: 92 refs -- `Meck-P4-main\components\meshcore\MeckUI.cpp:5723`
+- ? **mesh_sync_word**: 4613 refs -- `Meck-P4-main\main\examples\lvgl_9_ui\win_home_app_icon_camera_110x110px_rgb565a8.c:38`
+- ? **mesh_encryption**: 259 refs -- `Meck-P4-main\debug\examples\hi8561_ov5640\components\esp_video\src\esp_video_isp_pipeline.c:335`
 - ? **reticulum**: absent
 
-### Meshtastic (LoRa Mesh)
+### Meshtastic (firmware-develop)
 - ? **lora_radio**: 1402 refs -- `firmware-develop\src\DisplayFormatters.cpp:8`
-- ? **mesh_routing**: 57 refs -- `firmware-develop\src\mesh\FloodingRouter.cpp:1`
+- ? **mesh_routing**: 57 refs -- `firmware-develop\test\test_mqtt\MQTT.cpp:363`
 - ? **mesh_sync_word**: 162 refs -- `firmware-develop\src\input\MPR121Keyboard.cpp:14`
-- ? **mesh_encryption**: 192 refs -- `firmware-develop\src\mesh\aes-ccm.cpp:2`
+- ? **mesh_encryption**: 192 refs -- `firmware-develop\test\test_crypto\test_main.cpp:2`
 - ? **reticulum**: 2 refs -- `firmware-develop\src\mesh\generated\meshtastic\portnums.pb.h:148`
 
 ## 5. Gap Analysis: JARVIX-OS vs Reference
@@ -131,29 +131,29 @@
 - **Manquant**: ethernet, spi_transport
 
 ### JARVIX-OS vs ESP-Hosted (P4<->C6 Bridge)
-- **Couvert**: backpressure, iram_attr, mesh_encryption, mqtt, priority_inversion, psram_alloc, ring_buffer, ring_buffer_transport, semaphore, task_pin, timestamp, wifi_ps_mode
-- **Manquant**: esp_hosted_init, ethernet, sdio_transport, spi_transport, udp
+- **Couvert**: backpressure, iram_attr, mesh_encryption, mqtt, priority_inversion, psram_alloc, ring_buffer, ring_buffer_transport, sdio_transport, semaphore, task_pin, timestamp, udp, wifi_ps_mode
+- **Manquant**: esp_hosted_init, ethernet, spi_transport
 
 ### JARVIX-OS vs ESP-ADF (Audio Framework)
-- **Couvert**: afe_init, backpressure, es8311_init, i2s_init, i2s_read, i2s_write, iram_attr, mesh_encryption, mesh_sync_word, mqtt, priority_inversion, psram_alloc, ring_buffer, ring_buffer_transport, sample_rate, semaphore, task_pin, timestamp, vad, wakenet, watchdog, websocket, wifi_ps_mode
-- **Manquant**: apll, dma_config, opus_decoder, opus_encoder, spi_transport, udp
+- **Couvert**: afe_init, backpressure, dma_config, es8311_init, i2s_init, i2s_read, i2s_write, iram_attr, mesh_encryption, mesh_sync_word, mqtt, opus_decoder, opus_encoder, priority_inversion, psram_alloc, ring_buffer, ring_buffer_transport, sample_rate, semaphore, task_pin, timestamp, udp, vad, wakenet, watchdog, websocket, wifi_ps_mode
+- **Manquant**: apll, spi_transport
 
 ### JARVIX-OS vs Xiaozhi-ESP32 (Voice Assistant)
-- **Couvert**: afe_init, backpressure, i2s_init, iram_attr, jitter_buffer, lora_radio, mesh_encryption, mesh_sync_word, mqtt, priority_inversion, psram_alloc, sample_rate, timestamp, vad, wakenet, websocket, wifi_ps_mode
-- **Manquant**: dma_config, ethernet, opus_decoder, opus_encoder, spi_transport
+- **Couvert**: afe_init, backpressure, dma_config, i2s_init, iram_attr, jitter_buffer, lora_radio, mesh_encryption, mesh_sync_word, mqtt, opus_decoder, opus_encoder, priority_inversion, psram_alloc, sample_rate, timestamp, vad, wakenet, websocket, wifi_ps_mode
+- **Manquant**: ethernet, spi_transport
 
 ## 6. Timing & Memory: Points Critiques
 
-| Pattern | ha_voice | esp_hosted | esp_adf | xiaozhi | meshcore | meshtastic | jarvix |
-|---|---|---|---|---|---|---|---|
-| **memory_placement** | 6 | 38 | 31 | 2 | 79 | 17 | 5 |
-| **psram_usage** | 27 | 10 | 92 | 12 | 130 | 108 | 56 |
-| **task_pinning** | 5 | 4 | 8 | -- | 8 | 12 | 27 |
-| **watchdog** | 44 | -- | 2 | -- | 33 | 83 | 9 |
-| **cache_management** | -- | -- | -- | -- | -- | -- | -- |
-| **synchronization** | 39 | 109 | 66 | -- | 189 | 14 | 149 |
-| **timestamp** | 9 | 14 | 66 | 25 | 366 | 601 | 244 |
-| **task_priority** | 4 | 12 | 19 | 5 | 65 | 52 | 15 |
+| Pattern | ha_voice | esp_hosted | esp_adf | xiaozhi | xiaozhi_serv | meshcore | meshtastic | trail_mate | meshcomod | akita_bridge | lunarcore | meck_p4 | tdisplay_p4 | jarvix |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **memory_placement** | 6 | 38 | 31 | 2 | -- | 79 | 17 | 33 | 20 | -- | -- | 79 | 79 | 10 |
+| **psram_usage** | 27 | 10 | 92 | 12 | -- | 161 | 108 | 107 | 146 | -- | -- | 161 | 73 | 69 |
+| **task_pinning** | 5 | 4 | 8 | -- | -- | 8 | 12 | 1 | 26 | -- | -- | 8 | 6 | 43 |
+| **watchdog** | 44 | -- | 2 | -- | -- | 38 | 83 | 41 | 21 | -- | -- | 38 | 27 | 39 |
+| **cache_management** | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
+| **synchronization** | 39 | 109 | 66 | -- | -- | 189 | 14 | 178 | 5 | -- | -- | 189 | 66 | 169 |
+| **timestamp** | 9 | 14 | 66 | 25 | -- | 383 | 601 | 425 | 670 | -- | -- | 383 | 128 | 437 |
+| **task_priority** | 4 | 12 | 19 | 5 | -- | 65 | 52 | 29 | 43 | -- | -- | 65 | 53 | 26 |
 
 ## 7. Recommandations d'Integration pour JARVIX-OS
 
@@ -164,7 +164,7 @@
 
 ### Etape 2: Transport P4<->C6
 **Source:** `esp_hosted`
-**References:** `esp-hosted\esp_hosted_fg\esp\esp_driver\network_adapter\main\sdio_slave_api.c:24`, `esp-hosted\esp_hosted_fg\esp\esp_driver\network_adapter\main\example_mqtt_client.c:255`
+**References:** `esp-hosted\esp_hosted_ng\host\sdio\esp_sdio.c:544`, `esp-hosted\esp_hosted_ng\host\esp_stats.c:69`
 **Action:** Integrer `esp_hosted` comme composant JARVIX-OS. Le slave C6 doit tourner le firmware `esp_driver/network_adapter`. Valider le throughput SDIO avec burst test + backpressure.
 
 ### Etape 3: Audio Pipeline Complet
@@ -174,7 +174,7 @@
 
 ### Etape 4: Jitter Buffer Double
 **Source:** `esp_adf`
-**References:** `esp-adf\components\audio_pipeline\audio_element.c:59`
+**References:** `esp-adf\examples\recorder\pipeline_wav_amr_sdcard\main\pipeline_wav_amr_sdcard.c:137`
 **Action:** Implementer 2 ring buffers: C6 (absorb WiFi jitter) + P4 (absorb SDIO jitter). Taille recommandee: 80-150ms cote C6, 20-40ms cote P4.
 
 ### Etape 5: WiFi Power Save
@@ -183,5 +183,5 @@
 
 ### Etape 6: Mesh Mode Switch
 **Source:** `meshcore`
-**References:** `Meck-P4-main\components\meshcore\meck_emoji_14.c:177`, `Meck-P4-main\components\meshcore\MeckUI.cpp:403`
+**References:** `Meck-P4-main\main\examples\lvgl_9_ui\win_home_app_icon_camera_110x110px_rgb565a8.c:38`, `Meck-P4-main\main\keyboard_examples\radiolib_cc1101_send_receive\main.cpp:2`
 **Action:** Le switch MeshCore<->Meshtastic necessite: (1) dual firmware partitions, (2) reconfiguration sync word (0x1424 vs 0x2b), (3) reinit radio. Utiliser NVS flag pour selectionner le mode au boot.

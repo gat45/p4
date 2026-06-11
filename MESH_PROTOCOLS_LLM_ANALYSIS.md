@@ -1,7 +1,7 @@
 # Rapport: Protocoles Mesh + LLM/Agent — Analyse Approfondie
 
 **Date:** 11 Juin 2026  
-**Sources:** MeshCore-official, meshtastic-firmware, trail-mate, Meck-P4-main,  
+**Sources:** MeshCore-official (merlin-chen), meshtastic-firmware, trail-mate, Meck-P4-main,  
 autogen, open-interpreter, RWKV.cpp, snntorch, norse, gat45/p4
 
 ---
