@@ -1,0 +1,100 @@
+Reconfiguration SX1262 à chaud (validé par trail-mate sx1262_radio_packet_io.cpp) :
+1. setRx(false)                → stop RX, vide buffer
+2. setSyncWord(0x1424→0x2B)    → change sync word
+3. setFrequency(917→907MHz)    → change fréquence
+4. setBandwidth(62.5→250kHz)   → change BW
+5. setSpreadingFactor(7→11)    → change SF
+6. setCodingRate(4/8→4/5)      → change CR
+7. clearIrqFlags()             → reset flags
+8. setRx(true)                 → re-entre en RX
+Temps total: ~10-15ms. Pendant ce temps, 0 paquet reçu (fenêtre aveugle).
+Ce qui arrive aux paquets
+Scénario	Résultat
+Paquet MeshCore arrive pendant switch (~15ms)	Perdu — radio en reconfig
+Paquet MeshCore arrive en mode Meshtastic	Rejeté par hardware — mauvais sync word, pas d'IRQ
+Paquet Meshtastic arrive en mode MeshCore	Rejeté par hardware — idem
+Paquet correct juste après switch	Reçu normalement
+Aucun risque de collision ou corruption. Le sync word hardware filter du SX1262 rejette silencieusement tout paquet qui n'a pas le bon sync word — pas d'IRQ, pas de CPU, pas d'erreur.
+Stratégies de Switching
+1. Manuel (recommandé pour commencer)
+[UI Button] → switch to Meshtastic → stay → [UI Button] → switch back
+- Perte: 0 paquets (tu es volontairement sur un seul réseau à la fois)
+- Simple, pas de logique temporelle
+2. Time-sliced Round Robin
+t=0..30s:  MeshCore (RX/TX normal)
+t=30..30.015s:  reconfig → Meshtastic
+t=30.015..60s:  Meshtastic (RX/TX normal)
+t=60..60.015s:  reconfig → MeshCore
+...cycle...
+- Perte: ~50% des paquets de l'autre protocole (arrivés pendant ta fenêtre)
+- Les ACK Meshtastic (timeout 5-30s) peuvent expirer si le cycle est trop long
+- Fenêtre optimale: 15-30s par protocole (compromis réactivité vs perte)
+3. Prioritaire + Scan (recommandé JARVIX)
+toujours: MeshCore (voix + mesh principal)
+toutes les 60s: pause MeshCore 200ms → scan Meshtastic 500ms → retour MeshCore
+  → écoute 500ms en mode Meshtastic
+  → si paquet reçu: stocke + retour MeshCore
+  → si message à envoyer: switch complet 5s, puis retour
+- Perte MeshCore: ~700ms toutes les 60s = ~1.2% de downtime
+- Peut répondre aux messages Meshtastic sans perdre le flux vocal MeshCore
+- Meilleur compromis pour un système vocal où MeshCore est prioritaire
+4. Événementiel (avancé)
+MeshCore RX permanent
+Si paquet avec flag "Meshtastic request": 
+  → switch Meshtastic 30s → switch back
+Nécessite un bridge node qui écoute les deux (ou un paquet spécial MeshCore qui signale "réponds en Meshtastic").
+Ce que trail-mate fait actuellement
+trail-mate ne fait pas de switching runtime entre protocoles. Il choisit un protocole au démarrage et reste dessus. L'architecture d'adaptateurs est là, mais le time-slicing n'est pas implémenté.
+Tu serais le premier à le faire sur P4. Aucun projet open source existant ne switch dynamiquement entre MeshCore et Meshtastic sur le même SX1262 en runtime.
+Implémentation minimale (pseudo-code)
+typedef enum { PROTO_MESHCORE, PROTO_MESHTASTIC } protocol_t;
+
+void switch_protocol(protocol_t proto) {
+    sx1262_set_rx(false);
+    vTaskDelay(pdMS_TO_TICKS(1));  // wait for last operation
+    
+    if (proto == PROTO_MESHCORE) {
+        sx1262_set_syncword(0x1424);
+        sx1262_set_frequency(916.575);
+        sx1262_set_bw(SX1262_BW_62_5);
+        sx1262_set_sf(SX1262_SF_7);
+        sx1262_set_cr(SX1262_CR_4_8);
+    } else {
+        sx1262_set_syncword(0x2B);
+        sx1262_set_frequency(906.875);  // example
+        sx1262_set_bw(SX1262_BW_250);
+        sx1262_set_sf(SX1262_SF_11);
+        sx1262_set_cr(SX1262_CR_4_5);
+    }
+    
+    sx1262_clear_irq_flags(0xFFFF);
+    sx1262_set_rx(true);
+    // 15ms total
+}
+Conclusion: Oui, faisable. Personne ne l'a encore fait. La stratégie #3 (Prioritaire + Scan) est la meilleure pour JARVIX-OS : MeshCore toujours actif pour la voix, Meshtastic en idle scan pour interop.
+
+
+
+
+1. Sync Word — Filtrage PAS fiable à 100%
+RadioLib maintainer (jgromes) : "The LoRa sync word does not translate into bits like FSK. You CAN still receive packets with different sync words. Only 0x12 and 0x34 give reliable filtering."
+→ Mon affirmation "sync word différent = rejeté par hardware" est trop optimiste. En pratique :
+- MeshCore (0x1424) et Meshtastic (0x2B) peuvent se recevoir mutuellement (faux positifs)
+- Le filtrage réel est probabiliste, pas absolu
+- Correction: La coexistence repose sur SF orthogonal + fréquence différente, pas sur le sync word
+2. ESP-Launcher existe déjà
+Vidéo YouTube "Lilygo TLora Pager Build - Launcher Bruce Meshtastic" (Sep 2025) — multiboot qui switch entre Meshtastic, MeshCore, Bruce. Mais c'est un dual-partition bootloader (reboot+flash), PAS du runtime switching comme je proposais.
+3. trail-mate NE switch PAS en runtime
+Confirmé par l'article CNX (April 2026) : trail-mate réutilise le code des deux protocoles mais choisit un protocole au démarrage et reste dessus. Pas de time-slicing existant.
+Leçons :
+- ESP-Launcher = la solution réelle pour dual-protocole aujourd'hui (reflash via boot menu)
+- Runtime switching que je proposais = personne ne l'a fait, et le sync word filtering n'est pas fiable à 100% → risque de faux positifs
+- Stratégie révisée: Dual partition boot (ESP-Launcher model) plutôt que runtime switching. Plus fiable, déjà prouvé.
+
+
+
+
+
+
+
+
