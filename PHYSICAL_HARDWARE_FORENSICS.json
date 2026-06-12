@@ -1,0 +1,55 @@
+{
+  "client-sdk-esp32\\components\\livekit\\examples\\custom_hardware\\sdkconfig.defaults": {
+    "regions": [],
+    "power_mgmt": [
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ"
+    ],
+    "cache": []
+  },
+  "client-sdk-esp32\\components\\livekit\\examples\\minimal\\sdkconfig.defaults": {
+    "regions": [],
+    "power_mgmt": [
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ"
+    ],
+    "cache": []
+  },
+  "client-sdk-esp32\\components\\livekit\\examples\\voice_agent\\sdkconfig.defaults": {
+    "regions": [],
+    "power_mgmt": [
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ"
+    ],
+    "cache": []
+  },
+  "JARVIX-OS\\sdkconfig.defaults": {
+    "regions": [],
+    "power_mgmt": [
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ"
+    ],
+    "cache": []
+  },
+  "Meck-P4-main\\debug\\examples\\deep_sleep\\sdkconfig.defaults": {
+    "regions": [],
+    "power_mgmt": [
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ",
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ"
+    ],
+    "cache": []
+  },
+  "Meck-P4-v2\\debug\\examples\\deep_sleep\\sdkconfig.defaults": {
+    "regions": [],
+    "power_mgmt": [
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ",
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ"
+    ],
+    "cache": []
+  },
+  "trail-mate\\sdkconfig": {
+    "regions": [],
+    "power_mgmt": [
+      "CONFIG_PM_ENABLE",
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ",
+      "CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ"
+    ],
+    "cache": []
+  }
+}
